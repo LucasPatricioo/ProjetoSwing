@@ -136,4 +136,76 @@ public class JDBCusuario {
         }
         return user;
     }
+    
+    public ArrayList<usuario> buscarTodosUsuarios(){
+    
+        ArrayList<usuario> userList = new ArrayList<usuario>();
+        
+        String sql = "SELECT * FROM tblusuario";
+    
+        try{
+            Statement st = conexao.createStatement();
+        
+             ResultSet resultado = st.executeQuery(sql);
+        
+             while(resultado.next()){
+                 int idUsuario = resultado.getInt("idUsuario");
+                 String nomeUsuario = resultado.getString("nomeUsuario");
+                 String senha = resultado.getString("senha");
+                 String nomeCompleto = resultado.getString("nomeCompleto");
+                 String email = resultado.getString("email");
+                 String telefone = resultado.getString("telefone");
+                 
+                 usuario user = new usuario(idUsuario, nomeUsuario, senha, nomeCompleto, email, telefone);
+                 userList.add(user);
+             }
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        
+        return userList;
+    }
+    
+    public void AtualizarDadosUsuario(int idUsuario, usuario user){
+        
+        String sql = "UPDATE tblusuario set "
+                + "nomeCompleto=?, "
+                + "nomeUsuario=?, "
+                + "email=?, "
+                + "senha=?, "
+                + "telefone=? where idUsuario=?";
+        
+        PreparedStatement ps;
+        
+        try{
+            ps = this.conexao.prepareStatement(sql);
+            
+            ps.setString(1, user.getNomeCompleto());
+            ps.setString(2, user.getNomeUsuario());
+            ps.setString(3, user.getEmail());
+            ps.setString(4, user.getSenha());
+            ps.setString(5, user.getTelefone());
+            ps.setString(6, String.valueOf(idUsuario));
+            
+            ps.execute();
+        }catch(SQLException ex){ 
+            ex.printStackTrace();
+        }
+    }
+    public void DeletarUsuario(int idUsuario){
+        
+        String sql = "DELETE FROM tblusuario WHERE idUsuario=?";
+        PreparedStatement ps;
+        
+        try{
+            ps = this.conexao.prepareStatement(sql);
+            
+            ps.setString(1, String.valueOf(idUsuario));
+            ps.execute();
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+    
+    
 }

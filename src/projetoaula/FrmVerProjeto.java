@@ -4,12 +4,21 @@
  */
 package projetoaula;
 
+import javax.swing.JLabel;
+import projetoaula.Model.projeto;
+import projetoaula.Persistencia.JDBCprojeto;
+import projetoaula.Persistencia.conexao;
+
+
 /**
  *
  * @author lucas
  */
 public class FrmVerProjeto extends javax.swing.JFrame {
 
+    
+    private int idProjeto;
+    private int idResponsavel;
     /**
      * Creates new form FrmVerProjeto
      */
@@ -39,11 +48,12 @@ public class FrmVerProjeto extends javax.swing.JFrame {
         btnSair = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         btnRequisitos = new javax.swing.JButton();
+        lblIdProjeto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 33)); // NOI18N
-        jLabel1.setText("Consultar Projeto");
+        jLabel1.setText("- Consultar Projeto");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         jLabel3.setText("Nome Responsável: ");
@@ -86,12 +96,16 @@ public class FrmVerProjeto extends javax.swing.JFrame {
             }
         });
 
+        lblIdProjeto.setFont(new java.awt.Font("Dialog", 1, 33)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(366, 366, 366)
+                .addGap(307, 307, 307)
+                .addComponent(lblIdProjeto)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
@@ -127,7 +141,9 @@ public class FrmVerProjeto extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lblIdProjeto))
                 .addGap(81, 81, 81)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -152,6 +168,7 @@ public class FrmVerProjeto extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         // TODO add your handling code here:
@@ -201,7 +218,28 @@ public class FrmVerProjeto extends javax.swing.JFrame {
             }
         });
     }
-
+    
+        public void carregarDadosProjeto(String idProjeto) {
+        lblIdProjeto.setText(idProjeto);
+        
+        this.idProjeto = Integer.parseInt(lblIdProjeto.getText());
+        
+        
+        conexao conect = new conexao();
+        JDBCprojeto bd = new JDBCprojeto(conect.abrirConexao());
+        projeto project = bd.buscarProjeto(this.idProjeto);
+        conect.fecharConexao();
+        
+        if(project != null){
+            txtNomeProjeto.setText(project.getNomeProjeto());
+            txtNomeResponsavel.setText(project.get);
+            txtNomeDeUsuario.setText(idProjeto);
+            txtaDescProjeto.setText(idProjeto);
+        }
+        
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRequisitos;
     private javax.swing.JButton btnSair;
@@ -212,6 +250,7 @@ public class FrmVerProjeto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblIdProjeto;
     private javax.swing.JTextField txtNomeDeUsuario;
     private javax.swing.JTextField txtNomeProjeto;
     private javax.swing.JTextField txtNomeResponsavel;

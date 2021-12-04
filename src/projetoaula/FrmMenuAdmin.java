@@ -15,11 +15,14 @@ import projetoaula.Persistencia.conexao;
  */
 public class FrmMenuAdmin extends javax.swing.JFrame {
 
+    
+    private static String idLogado;
     /**
      * Creates new form FrmMenuAdmin
      */
     public FrmMenuAdmin() {
         initComponents();
+        lblIdUsuario.setText(idLogado);
     }
 
     /**
@@ -206,6 +209,7 @@ public class FrmMenuAdmin extends javax.swing.JFrame {
     
     public void setLblIdUsuario(String idUsuario) {
         lblIdUsuario.setText(idUsuario);
+        idLogado = idUsuario;
     }
     
     /**

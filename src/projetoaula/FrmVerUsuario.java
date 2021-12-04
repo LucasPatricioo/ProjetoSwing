@@ -4,17 +4,24 @@
  */
 package projetoaula;
 
+import javax.swing.JLabel;
+import projetoaula.Model.usuario;
+import projetoaula.Persistencia.JDBCusuario;
+import projetoaula.Persistencia.conexao;
+
 /**
  *
  * @author lucas
  */
 public class FrmVerUsuario extends javax.swing.JFrame {
 
+    private int idUsuario;
     /**
      * Creates new form FrmVerUsuario
      */
     public FrmVerUsuario() {
         initComponents();
+
     }
 
     /**
@@ -41,6 +48,8 @@ public class FrmVerUsuario extends javax.swing.JFrame {
         btnSalvarUsuario = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
+        lblIdUsuario = new javax.swing.JLabel();
+        lblMsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,9 +80,19 @@ public class FrmVerUsuario extends javax.swing.JFrame {
 
         btnDeletarUsuario.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         btnDeletarUsuario.setText("Deletar Usuário");
+        btnDeletarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarUsuarioActionPerformed(evt);
+            }
+        });
 
         btnSalvarUsuario.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         btnSalvarUsuario.setText("Salvar Alterações");
+        btnSalvarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarUsuarioActionPerformed(evt);
+            }
+        });
 
         btnVoltar.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         btnVoltar.setText("Voltar");
@@ -84,7 +103,12 @@ public class FrmVerUsuario extends javax.swing.JFrame {
         });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 33)); // NOI18N
-        jLabel7.setText("Consulta Usuário Cadastrado");
+        jLabel7.setText("- Consulta Usuário Cadastrado");
+
+        lblIdUsuario.setFont(new java.awt.Font("Tahoma", 0, 33)); // NOI18N
+
+        lblMsg.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        lblMsg.setForeground(new java.awt.Color(255, 0, 0));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,7 +119,7 @@ public class FrmVerUsuario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSalvarUsuario)
-                        .addGap(143, 143, 143)
+                        .addGap(133, 133, 133)
                         .addComponent(btnDeletarUsuario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -125,12 +149,15 @@ public class FrmVerUsuario extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtSenha)))))
+                                .addComponent(txtSenha))
+                            .addComponent(lblMsg, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(83, 83, 83)
                 .addComponent(jLabel5)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(278, 278, 278)
+                .addGap(219, 219, 219)
+                .addComponent(lblIdUsuario)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -138,7 +165,9 @@ public class FrmVerUsuario extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(41, 41, 41)
-                .addComponent(jLabel7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(lblIdUsuario))
                 .addGap(69, 69, 69)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -154,7 +183,8 @@ public class FrmVerUsuario extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblMsg))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
@@ -170,10 +200,43 @@ public class FrmVerUsuario extends javax.swing.JFrame {
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         // TODO add your handling code here:
-        FrmMenuAdmin menuAdmin = new FrmMenuAdmin();
-        menuAdmin.setVisible(true);
+        FrmListaUsuarios listaUsuarios = new FrmListaUsuarios();
+        listaUsuarios.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void btnSalvarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarUsuarioActionPerformed
+        // TODO add your handling code here:
+        
+        String nomeCompleto = txtNomeCompleto.getText();
+        String nomeUsuario = txtNomeDeUsuario.getText();
+        String senha = txtSenha.getText();
+        String email = txtEmail.getText();
+        String telefone = txtTelefone.getText();
+        
+        usuario user = new usuario(nomeUsuario, senha, nomeCompleto, email, telefone);
+        
+        conexao connect = new conexao();
+        JDBCusuario bd = new JDBCusuario(connect.abrirConexao());
+        bd.AtualizarDadosUsuario(idUsuario, user);
+        connect.fecharConexao();
+        
+        lblMsg.setText("Usuário atualizado com sucesso!");
+    }//GEN-LAST:event_btnSalvarUsuarioActionPerformed
+
+    private void btnDeletarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarUsuarioActionPerformed
+        // TODO add your handling code here:
+        
+        conexao connect = new conexao();
+        JDBCusuario bd = new JDBCusuario(connect.abrirConexao());
+        bd.DeletarUsuario(idUsuario);
+        connect.fecharConexao();
+        
+        FrmListaUsuarios listaUsuarios = new FrmListaUsuarios();
+        listaUsuarios.setLblMsg("Usuario deletado com sucesso!");
+        listaUsuarios.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnDeletarUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -210,6 +273,26 @@ public class FrmVerUsuario extends javax.swing.JFrame {
         });
     }
 
+    public void carregarDadosUsuario(String idRecebido) {
+        lblIdUsuario.setText(idRecebido);
+        
+        idUsuario = Integer.parseInt(lblIdUsuario.getText());
+        
+        
+        conexao conect = new conexao();
+        JDBCusuario bd = new JDBCusuario(conect.abrirConexao());
+        usuario user = bd.buscarUsuario(idUsuario);
+        conect.fecharConexao();
+        
+        if(user != null){
+            txtNomeCompleto.setText(user.getNomeCompleto());
+            txtNomeDeUsuario.setText(user.getNomeUsuario());
+            txtTelefone.setText(user.getTelefone());
+            txtEmail.setText(user.getEmail());
+            txtSenha.setText(user.getSenha());
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDeletarUsuario;
     private javax.swing.JButton btnSalvarUsuario;
@@ -221,6 +304,8 @@ public class FrmVerUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel lblIdUsuario;
+    private javax.swing.JLabel lblMsg;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNomeCompleto;
     private javax.swing.JTextField txtNomeDeUsuario;

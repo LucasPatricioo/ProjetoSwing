@@ -1,11 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/projetoaula/Persistencia/JDBCprojeto.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>81</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/lucas/OneDrive/Documentos/NetBeansProjects/ProjetoAula/src/projetoaula/FrmVerUsuario.java</file>
             <file>file:/C:/Users/lucas/OneDrive/Documentos/NetBeansProjects/ProjetoAula/src/projetoaula/Model/usuario.java</file>
+            <file>file:/C:/Users/lucas/OneDrive/Documentos/NetBeansProjects/ProjetoAula/src/projetoaula/Model/projeto.java</file>
+            <file>file:/C:/Users/lucas/OneDrive/Documentos/NetBeansProjects/ProjetoAula/src/projetoaula/FrmMenuAdmin.java</file>
+            <file>file:/C:/Users/lucas/OneDrive/Documentos/NetBeansProjects/ProjetoAula/src/projetoaula/Persistencia/JDBCprojeto.java</file>
             <file>file:/C:/Users/lucas/OneDrive/Documentos/NetBeansProjects/ProjetoAula/src/projetoaula/Persistencia/JDBCusuario.java</file>
             <file>file:/C:/Users/lucas/OneDrive/Documentos/NetBeansProjects/ProjetoAula/src/projetoaula/FrmLogin.java</file>
+            <file>file:/C:/Users/lucas/OneDrive/Documentos/NetBeansProjects/ProjetoAula/src/projetoaula/FrmCadastroUsuario.java</file>
+            <file>file:/C:/Users/lucas/OneDrive/Documentos/NetBeansProjects/ProjetoAula/src/projetoaula/FrmVerProjeto.java</file>
         </group>
     </open-files>
 </project-private>

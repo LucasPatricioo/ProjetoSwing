@@ -4,17 +4,42 @@
  */
 package projetoaula;
 
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
+import projetoaula.Model.usuario;
+import projetoaula.Persistencia.JDBCusuario;
+import projetoaula.Persistencia.conexao;
+
+
+
 /**
  *
  * @author lucas
  */
 public class FrmListaUsuarios extends javax.swing.JFrame {
 
+
+    
+    
     /**
      * Creates new form FrmListaUsuarios
      */
     public FrmListaUsuarios() {
         initComponents();
+        
+        DefaultListModel model = new DefaultListModel();
+        
+        conexao connect = new conexao();
+        JDBCusuario bd = new JDBCusuario(connect.abrirConexao());
+        ArrayList<usuario> userList = bd.buscarTodosUsuarios();
+        connect.fecharConexao();
+        
+        for(int i = 0; i<userList.size(); i++){
+            usuario user = userList.get(i);
+            model.addElement("ID: " + user.getIdUsuario()+ " | Usuário:  " + user.getNomeUsuario());
+        }
+        listUsuario.setModel(model);
     }
 
     /**
@@ -26,17 +51,18 @@ public class FrmListaUsuarios extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
+        txtIdUsuarioRec = new javax.swing.JTextField();
         btnPesquisaUsuario = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jLabel2 = new javax.swing.JLabel();
+        listUsuario = new javax.swing.JList<>();
+        lblMsg = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtIdUsuarioRec.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
 
         btnPesquisaUsuario.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         btnPesquisaUsuario.setText("Pesquisar");
@@ -57,40 +83,44 @@ public class FrmListaUsuarios extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 33)); // NOI18N
         jLabel1.setText("Lista de Usuários");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(listUsuario);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
-        jLabel2.setText("Usuário:");
+        lblMsg.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        lblMsg.setForeground(new java.awt.Color(255, 0, 0));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        jLabel3.setText("Id Usuário:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(112, 112, 112)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(156, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblMsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnPesquisaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(txtIdUsuarioRec)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnPesquisaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(79, 79, 79)))
                         .addGap(32, 32, 32))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(191, 191, 191))))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(42, 42, 42)
+                    .addComponent(jLabel3)
+                    .addContainerGap(542, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,12 +131,22 @@ public class FrmListaUsuarios extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdUsuarioRec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisaUsuario))
-                .addGap(18, 18, 18)
-                .addComponent(btnSair)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                        .addComponent(btnSair)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(lblMsg)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(529, Short.MAX_VALUE)
+                    .addComponent(jLabel3)
+                    .addGap(81, 81, 81)))
         );
 
         pack();
@@ -114,8 +154,8 @@ public class FrmListaUsuarios extends javax.swing.JFrame {
 
     private void btnPesquisaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaUsuarioActionPerformed
         // TODO add your handling code here:
-
         FrmVerUsuario verUsuario = new FrmVerUsuario();
+        verUsuario.carregarDadosUsuario(txtIdUsuarioRec.getText());
         verUsuario.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnPesquisaUsuarioActionPerformed
@@ -126,6 +166,10 @@ public class FrmListaUsuarios extends javax.swing.JFrame {
         menuAdmin.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnSairActionPerformed
+
+    public void setLblMsg(String mensagem) {
+        lblMsg.setText(mensagem);
+    }
 
     /**
      * @param args the command line arguments
@@ -166,9 +210,10 @@ public class FrmListaUsuarios extends javax.swing.JFrame {
     private javax.swing.JButton btnPesquisaUsuario;
     private javax.swing.JButton btnSair;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblMsg;
+    private javax.swing.JList<String> listUsuario;
+    private javax.swing.JTextField txtIdUsuarioRec;
     // End of variables declaration//GEN-END:variables
 }

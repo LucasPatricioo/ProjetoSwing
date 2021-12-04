@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package projetoaula;
+import java.sql.SQLException;
 import projetoaula.Model.usuario;
 import projetoaula.Persistencia.JDBCusuario;
 import projetoaula.Persistencia.conexao;
