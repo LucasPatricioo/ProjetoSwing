@@ -102,5 +102,75 @@ public class JDBCprojeto {
         return projectList;
     }
     
+    public ArrayList<projeto> buscarProjetosResponsavel(int idResponsavel){
+
+        ArrayList<projeto> listProject = new ArrayList<projeto>();
+        
+        String sql = "select * from tblprojeto where idProprietario=?";
+        PreparedStatement ps;
+        projeto project;
+        
+        try{
+            ps = this.conexao.prepareStatement(sql);
+            
+            ps.setString(1, String.valueOf(idResponsavel));
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                int idProjeto = rs.getInt("idProjeto");
+                String nomeProjeto = rs.getString("nome");
+                String descricao = rs.getString("descricao");
+                int idProprietario = Integer.parseInt(rs.getString("idProprietario"));
+                
+                project = new projeto(idProjeto, nomeProjeto, descricao, idProprietario);
+                listProject.add(project);
+            }
+            
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return listProject;
+    }
+     
+     
+     
+     public void AtualizarDadosProjeto(int idProjeto, projeto project){
+        
+        String sql = "UPDATE tblprojeto SET "
+                + "nome=?, "
+                + "descricao=?, "
+                + "idProprietario=? WHERE idProjeto=?";
+        
+        PreparedStatement ps;
+        
+        try{
+            ps = this.conexao.prepareStatement(sql);
+            
+            ps.setString(1, project.getNomeProjeto());
+            ps.setString(2, project.getDescProjeto());
+            ps.setString(3, String.valueOf(project.getIdProprietario()));
+            ps.setString(4, String.valueOf(idProjeto));
+            
+            ps.execute();
+        }catch(SQLException ex){ 
+            ex.printStackTrace();
+        }
+    }
+     
+      public void DeletarProjeto(int idProjeto){
+        
+        String sql = "DELETE FROM tblprojeto WHERE idProjeto=?";
+        PreparedStatement ps;
+        
+        try{
+            ps = this.conexao.prepareStatement(sql);
+            
+            ps.setString(1, String.valueOf(idProjeto));
+            ps.execute();
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    }
     
 }

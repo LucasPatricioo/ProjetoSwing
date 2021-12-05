@@ -6,6 +6,7 @@ package projetoaula;
 
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
 import projetoaula.Model.projeto;
 import projetoaula.Persistencia.JDBCprojeto;
 import projetoaula.Persistencia.conexao;
@@ -52,6 +53,7 @@ public class FrmListaProjetos extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         listProjetos = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
+        lblMsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,6 +83,9 @@ public class FrmListaProjetos extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         jLabel2.setText("Id Projeto: ");
 
+        lblMsg.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        lblMsg.setForeground(new java.awt.Color(255, 0, 0));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -94,13 +99,14 @@ public class FrmListaProjetos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtIdBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 411, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblMsg)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(32, 32, 32))
                     .addGroup(layout.createSequentialGroup()
@@ -122,7 +128,9 @@ public class FrmListaProjetos extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(txtIdBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
-                .addComponent(btnSair)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSair)
+                    .addComponent(lblMsg))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -179,12 +187,19 @@ public class FrmListaProjetos extends javax.swing.JFrame {
         });
     }
 
+    public void setLblMsg(String mensagem) {
+        lblMsg.setText(mensagem);
+    }
+    
+    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPesquisarProjeto;
     private javax.swing.JButton btnSair;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblMsg;
     private javax.swing.JList<String> listProjetos;
     private javax.swing.JTextField txtIdBusca;
     // End of variables declaration//GEN-END:variables

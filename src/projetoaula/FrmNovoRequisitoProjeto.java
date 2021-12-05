@@ -4,12 +4,24 @@
  */
 package projetoaula;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import projetoaula.Model.projeto;
+import projetoaula.Model.requisito;
+import projetoaula.Model.usuario;
+import projetoaula.Persistencia.JDBCprojeto;
+import projetoaula.Persistencia.JDBCrequisito;
+import projetoaula.Persistencia.JDBCusuario;
+import projetoaula.Persistencia.conexao;
+
 /**
  *
  * @author lucas
  */
 public class FrmNovoRequisitoProjeto extends javax.swing.JFrame {
-
+    
+    private int idProjeto;
+    
     /**
      * Creates new form FrmNovoRequisitoProjeto
      */
@@ -27,50 +39,51 @@ public class FrmNovoRequisitoProjeto extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtNomeRequisito = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        txtFuncionalidades = new javax.swing.JTextField();
+        txtAutor = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        txtDataAlteracao = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        txtAutorAlteracao = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        txtVersao = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        txtPrioridade = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
+        txtComplexibilidade = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
+        txtEsforcoEmHoras = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
+        txtEstado = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
+        txtFase = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
+        txtModulo = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jTextField14 = new javax.swing.JTextField();
+        txtDataCriacao = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        jTextField15 = new javax.swing.JTextField();
+        txtDescricao = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         btnVoltar = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         jLabel1.setText("Nome Requisito: ");
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtNomeRequisito.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         jLabel2.setText("Funcionalidades");
 
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtFuncionalidades.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
 
-        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtAutor.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtAutor.setEnabled(false);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         jLabel3.setText("Autor");
@@ -78,59 +91,60 @@ public class FrmNovoRequisitoProjeto extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         jLabel4.setText("Data da última alteração");
 
-        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
-        jTextField5.setEnabled(false);
+        txtDataAlteracao.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtDataAlteracao.setEnabled(false);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         jLabel5.setText("Autor da última modificação;");
 
-        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
-        jTextField6.setEnabled(false);
+        txtAutorAlteracao.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtAutorAlteracao.setEnabled(false);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         jLabel6.setText("Versão");
 
-        jTextField7.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtVersao.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         jLabel7.setText("Prioridade");
 
-        jTextField8.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtPrioridade.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         jLabel8.setText("Complexidade");
 
-        jTextField9.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtComplexibilidade.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         jLabel9.setText("Esforço estimado em horas");
 
-        jTextField10.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtEsforcoEmHoras.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         jLabel10.setText("Estado");
 
-        jTextField11.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtEstado.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         jLabel11.setText("Fase");
 
-        jTextField12.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtFase.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         jLabel12.setText("Módulo");
 
-        jTextField13.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtModulo.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         jLabel13.setText("Data de criação");
 
-        jTextField14.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtDataCriacao.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtDataCriacao.setEnabled(false);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         jLabel14.setText("Descrição");
 
-        jTextField15.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtDescricao.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 33)); // NOI18N
         jLabel15.setText("Novo Requisito");
@@ -143,8 +157,13 @@ public class FrmNovoRequisitoProjeto extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
-        jButton3.setText("Salvar");
+        btnSalvar.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -157,33 +176,33 @@ public class FrmNovoRequisitoProjeto extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(jLabel2)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtFuncionalidades, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel13)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtDataCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel1)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtNomeRequisito, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel8)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtComplexibilidade, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel6)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtVersao, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel9)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtEsforcoEmHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel4)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtDataAlteracao, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel15)
@@ -193,36 +212,36 @@ public class FrmNovoRequisitoProjeto extends javax.swing.JFrame {
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel11)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(txtFase, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel3)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel7)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(txtPrioridade, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel10)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel12)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(txtModulo, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(txtAutorAlteracao, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 729, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 729, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(97, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -233,51 +252,51 @@ public class FrmNovoRequisitoProjeto extends javax.swing.JFrame {
                 .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNomeRequisito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDataCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtComplexibilidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPrioridade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtVersao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEsforcoEmHoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
-                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtModulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDataAlteracao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtAutorAlteracao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFuncionalidades, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVoltar)
-                    .addComponent(jButton3))
+                    .addComponent(btnSalvar))
                 .addGap(33, 33, 33))
         );
 
@@ -290,6 +309,44 @@ public class FrmNovoRequisitoProjeto extends javax.swing.JFrame {
         menuAdmin.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // TODO add your handling code here:
+        
+        String nomeRequisito = txtNomeRequisito.getText();
+        String fase = txtFase.getText();
+        String prioridade = txtPrioridade.getText();
+        String estado = txtEstado.getText();
+        String modulo = txtModulo.getText();
+        String funcionalidades = txtFuncionalidades.getText();
+        String descricao = txtDescricao.getText();
+        String esfEstimado = txtEsforcoEmHoras.getText();
+        String versao = txtVersao.getText();
+        String complexibilidade = txtComplexibilidade.getText();
+        LocalDate dataCriacao = LocalDate.now();
+        
+
+        conexao connect = new conexao();
+        JDBCprojeto bdProjeto = new JDBCprojeto(connect.abrirConexao());
+        projeto project = bdProjeto.buscarProjeto(idProjeto);
+        connect.fecharConexao();
+        
+        connect = new conexao();
+        JDBCusuario bdUser = new JDBCusuario(connect.abrirConexao());
+        usuario user = bdUser.buscarUsuario(project.getIdProprietario());
+        connect.fecharConexao();
+        
+        String autorAlteracao = user.getNomeUsuario();
+        LocalDateTime ultimaAlteracao = LocalDateTime.now();
+        
+        
+        requisito requisite = new requisito(nomeRequisito, modulo, funcionalidades, dataCriacao, ultimaAlteracao, autorAlteracao , versao, prioridade, complexibilidade, esfEstimado, estado, fase, descricao, idProjeto);
+        connect = new conexao();
+        JDBCrequisito bdRequisito = new JDBCrequisito(connect.abrirConexao());
+        bdRequisito.cadastrarRequisito(requisite);
+        connect.fecharConexao();
+        
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -322,13 +379,24 @@ public class FrmNovoRequisitoProjeto extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FrmNovoRequisitoProjeto().setVisible(true);
+                        
             }
         });
     }
 
+    public void setIdProjeto(int idProjeto) {
+        this.idProjeto = idProjeto;
+    }
+    public void carregarDados(){
+
+        
+        
+        
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -344,19 +412,19 @@ public class FrmNovoRequisitoProjeto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField txtAutor;
+    private javax.swing.JTextField txtAutorAlteracao;
+    private javax.swing.JTextField txtComplexibilidade;
+    private javax.swing.JTextField txtDataAlteracao;
+    private javax.swing.JTextField txtDataCriacao;
+    private javax.swing.JTextField txtDescricao;
+    private javax.swing.JTextField txtEsforcoEmHoras;
+    private javax.swing.JTextField txtEstado;
+    private javax.swing.JTextField txtFase;
+    private javax.swing.JTextField txtFuncionalidades;
+    private javax.swing.JTextField txtModulo;
+    private javax.swing.JTextField txtNomeRequisito;
+    private javax.swing.JTextField txtPrioridade;
+    private javax.swing.JTextField txtVersao;
     // End of variables declaration//GEN-END:variables
 }

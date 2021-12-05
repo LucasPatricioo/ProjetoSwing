@@ -7,6 +7,8 @@ package projetoaula;
 import javax.swing.JLabel;
 import projetoaula.Model.projeto;
 import projetoaula.Persistencia.JDBCprojeto;
+import projetoaula.Model.usuario;
+import projetoaula.Persistencia.JDBCusuario;
 import projetoaula.Persistencia.conexao;
 
 
@@ -17,8 +19,7 @@ import projetoaula.Persistencia.conexao;
 public class FrmVerProjeto extends javax.swing.JFrame {
 
     
-    private int idProjeto;
-    private int idResponsavel;
+    private static int idProjeto;
     /**
      * Creates new form FrmVerProjeto
      */
@@ -39,16 +40,17 @@ public class FrmVerProjeto extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtNomeResponsavel = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtNomeDeUsuario = new javax.swing.JTextField();
+        txtIdUsuario = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtaDescProjeto = new javax.swing.JTextArea();
         txtNomeProjeto = new javax.swing.JTextField();
         btnSair = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
         btnRequisitos = new javax.swing.JButton();
         lblIdProjeto = new javax.swing.JLabel();
+        btnDeletar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,9 +63,9 @@ public class FrmVerProjeto extends javax.swing.JFrame {
         txtNomeResponsavel.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
-        jLabel4.setText("Usuário:");
+        jLabel4.setText("Id Usuário: ");
 
-        txtNomeDeUsuario.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtIdUsuario.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         jLabel5.setText("Descrição do Projeto:");
@@ -85,8 +87,13 @@ public class FrmVerProjeto extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
-        jButton3.setText("Salvar");
+        btnSalvar.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        btnSalvar.setText("Salvar Alterações");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         btnRequisitos.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         btnRequisitos.setText("Requisitos");
@@ -98,44 +105,54 @@ public class FrmVerProjeto extends javax.swing.JFrame {
 
         lblIdProjeto.setFont(new java.awt.Font("Dialog", 1, 33)); // NOI18N
 
+        btnDeletar.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        btnDeletar.setText("Excluir");
+        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(307, 307, 307)
-                .addComponent(lblIdProjeto)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 965, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnRequisitos, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(307, 307, 307)
+                        .addComponent(lblIdProjeto)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtNomeProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 685, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtNomeResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtNomeDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jLabel5))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addComponent(btnRequisitos, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12))
+                            .addComponent(jScrollPane1)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtNomeProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 685, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(txtNomeResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(jLabel4)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(txtIdUsuario))))
+                                .addComponent(jLabel5)))))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,7 +169,7 @@ public class FrmVerProjeto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNomeResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(txtNomeDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(56, 56, 56)
                 .addComponent(jLabel5)
@@ -161,8 +178,9 @@ public class FrmVerProjeto extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSair)
-                    .addComponent(jButton3)
-                    .addComponent(btnRequisitos))
+                    .addComponent(btnSalvar)
+                    .addComponent(btnRequisitos)
+                    .addComponent(btnDeletar))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
 
@@ -172,17 +190,47 @@ public class FrmVerProjeto extends javax.swing.JFrame {
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         // TODO add your handling code here:
-        FrmMenuAdmin menuAdmin = new FrmMenuAdmin();
-        menuAdmin.setVisible(true);
+        FrmListaProjetos listaProjetos = new FrmListaProjetos();
+        listaProjetos.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnRequisitosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequisitosActionPerformed
         // TODO add your handling code here:
         FrmMenuRequisitos menuRequisitos = new FrmMenuRequisitos();
+        menuRequisitos.setIdProjeto(idProjeto);
         menuRequisitos.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnRequisitosActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // TODO add your handling code here:
+        
+        String nomeProjeto = txtNomeProjeto.getText();
+        String descProjeto = txtaDescProjeto.getText();
+        int idUsuario = Integer.parseInt(txtIdUsuario.getText());
+        
+        projeto project = new projeto(nomeProjeto, descProjeto, idUsuario);
+        
+        conexao connect = new conexao();
+        JDBCprojeto bd = new JDBCprojeto(connect.abrirConexao());
+        bd.AtualizarDadosProjeto(idProjeto, project);
+        connect.fecharConexao();
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
+        // TODO add your handling code here:
+        
+        conexao connect = new conexao();
+        JDBCprojeto bd = new JDBCprojeto(connect.abrirConexao());
+        bd.DeletarProjeto(idProjeto);
+        connect.fecharConexao();
+        
+        FrmListaProjetos listaProjetos = new FrmListaProjetos();
+        listaProjetos.setLblMsg("Projeto deletado com sucesso!");
+        listaProjetos.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnDeletarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -230,20 +278,25 @@ public class FrmVerProjeto extends javax.swing.JFrame {
         projeto project = bd.buscarProjeto(this.idProjeto);
         conect.fecharConexao();
         
+
         if(project != null){
             txtNomeProjeto.setText(project.getNomeProjeto());
-            txtNomeResponsavel.setText(project.get);
-            txtNomeDeUsuario.setText(idProjeto);
-            txtaDescProjeto.setText(idProjeto);
+            txtIdUsuario.setText(String.valueOf(project.getIdProprietario()));
+            txtaDescProjeto.setText(project.getDescProjeto());
+            
+            JDBCusuario bdUsuario = new JDBCusuario(conect.abrirConexao());
+            usuario user = bdUsuario.buscarUsuario(Integer.parseInt(txtIdUsuario.getText()));
+            conect.fecharConexao();
+            txtNomeResponsavel.setText(user.getNomeCompleto());
         }
-        
     }
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDeletar;
     private javax.swing.JButton btnRequisitos;
     private javax.swing.JButton btnSair;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -251,7 +304,7 @@ public class FrmVerProjeto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblIdProjeto;
-    private javax.swing.JTextField txtNomeDeUsuario;
+    private javax.swing.JTextField txtIdUsuario;
     private javax.swing.JTextField txtNomeProjeto;
     private javax.swing.JTextField txtNomeResponsavel;
     private javax.swing.JTextArea txtaDescProjeto;

@@ -4,8 +4,12 @@
  */
 package projetoaula;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JLabel;
+import projetoaula.Model.projeto;
 import projetoaula.Model.usuario;
+import projetoaula.Persistencia.JDBCprojeto;
 import projetoaula.Persistencia.JDBCusuario;
 import projetoaula.Persistencia.conexao;
 
@@ -228,6 +232,13 @@ public class FrmVerUsuario extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         conexao connect = new conexao();
+        JDBCprojeto bdProjeto = new JDBCprojeto(connect.abrirConexao());
+        ArrayList<projeto> listProject = bdProjeto.buscarProjetosResponsavel(idUsuario);
+        connect.fecharConexao();
+        
+        if(listProject.isEmpty()){
+            
+        connect = new conexao();
         JDBCusuario bd = new JDBCusuario(connect.abrirConexao());
         bd.DeletarUsuario(idUsuario);
         connect.fecharConexao();
@@ -236,6 +247,15 @@ public class FrmVerUsuario extends javax.swing.JFrame {
         listaUsuarios.setLblMsg("Usuario deletado com sucesso!");
         listaUsuarios.setVisible(true);
         this.setVisible(false);
+        }
+        else{
+            
+        FrmListaUsuarios listaUsuarios = new FrmListaUsuarios();
+        listaUsuarios.setLblMsg("Usuário não pode ser deletado se houver projetos sob sua responsabilidade.");
+        listaUsuarios.setVisible(true);
+        this.setVisible(false);
+        
+        }
     }//GEN-LAST:event_btnDeletarUsuarioActionPerformed
 
     /**

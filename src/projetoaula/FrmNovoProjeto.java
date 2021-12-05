@@ -39,7 +39,7 @@ public class FrmNovoProjeto extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtNomeResponsavel = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtNomeDeUsuario = new javax.swing.JTextField();
+        txtIdUsuario = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtaDescProjeto = new javax.swing.JTextArea();
@@ -63,10 +63,9 @@ public class FrmNovoProjeto extends javax.swing.JFrame {
         txtNomeResponsavel.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
-        jLabel4.setText("Usuário:");
+        jLabel4.setText("Id Usuário: ");
 
-        txtNomeDeUsuario.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
-        txtNomeDeUsuario.setEnabled(false);
+        txtIdUsuario.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         jLabel5.setText("Descrição do Projeto:");
@@ -115,14 +114,14 @@ public class FrmNovoProjeto extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtNomeDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(txtIdUsuario))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(337, 337, 337)
                                 .addComponent(jLabel1))
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jLabel5)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 40, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,7 +147,7 @@ public class FrmNovoProjeto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNomeResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(txtNomeDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(56, 56, 56)
                 .addComponent(jLabel5)
@@ -175,21 +174,12 @@ public class FrmNovoProjeto extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
         String nomeProjeto = txtNomeProjeto.getText();
-        String nomeResponsavel = txtNomeResponsavel.getText();
         String descProjeto = txtaDescProjeto.getText();
-        String nomeUsuario = txtNomeDeUsuario.getText();
+        int idUsuario = Integer.parseInt(txtIdUsuario.getText());
         
-        //Busca o usuário para saber a que usuário pertence o projeto
-        conexao connect = new conexao();
-        JDBCusuario bd = new JDBCusuario(connect.abrirConexao());
-        usuario user = bd.buscarUsuario(nomeUsuario);
-        connect.fecharConexao();
-        
-        if(user != null){
-            //Depois que busquei o usuário responsável e confirmei que ele existe gero o projeto
             try{
-                projeto proj = new projeto(nomeProjeto,descProjeto, user.getIdUsuario());
-                connect = new conexao();
+                projeto proj = new projeto(nomeProjeto,descProjeto,idUsuario);
+                conexao connect = new conexao();
                 JDBCprojeto bdProj = new JDBCprojeto(connect.abrirConexao());
                 bdProj.cadastrarProjeto(proj);
                 connect.fecharConexao();
@@ -197,11 +187,12 @@ public class FrmNovoProjeto extends javax.swing.JFrame {
             }catch(Exception ex){
                 lblMsg.setText("Ocorreu algum erro, tente novamente.");
             }
-        }
+        
     }//GEN-LAST:event_btnSalvarActionPerformed
 
-    public void setTxtNomeDeUsuario(String nomeUsuario) {
-        txtNomeDeUsuario.setText(nomeUsuario);
+    public void carregarDados(String nomeUsuario, String idUsuario) {
+        txtIdUsuario.setText(idUsuario);
+        txtNomeResponsavel.setText(nomeUsuario);
     }
 
     /**
@@ -249,7 +240,7 @@ public class FrmNovoProjeto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblMsg;
-    private javax.swing.JTextField txtNomeDeUsuario;
+    private javax.swing.JTextField txtIdUsuario;
     private javax.swing.JTextField txtNomeProjeto;
     private javax.swing.JTextField txtNomeResponsavel;
     private javax.swing.JTextArea txtaDescProjeto;

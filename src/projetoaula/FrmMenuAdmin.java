@@ -170,7 +170,7 @@ public class FrmMenuAdmin extends javax.swing.JFrame {
         
         if(user != null){
             FrmNovoProjeto novoProjeto = new FrmNovoProjeto();
-            novoProjeto.setTxtNomeDeUsuario(user.getNomeUsuario());
+            novoProjeto.carregarDados( user.getNomeUsuario(),lblIdUsuario.getText());
             novoProjeto.setVisible(true);
             this.setVisible(false);
         }

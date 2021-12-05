@@ -10,6 +10,9 @@ package projetoaula;
  */
 public class FrmMenuRequisitos extends javax.swing.JFrame {
 
+    private static int idProjeto;
+    
+    
     /**
      * Creates new form FrmMenuRequisitos
      */
@@ -100,6 +103,7 @@ public class FrmMenuRequisitos extends javax.swing.JFrame {
     private void btnNovoRequisitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoRequisitoActionPerformed
         // TODO add your handling code here:
          FrmNovoRequisitoProjeto novoRequisito = new FrmNovoRequisitoProjeto();
+         novoRequisito.setIdProjeto(idProjeto);
          novoRequisito.setVisible(true);
          this.setVisible(false);
     }//GEN-LAST:event_btnNovoRequisitoActionPerformed
@@ -117,6 +121,10 @@ public class FrmMenuRequisitos extends javax.swing.JFrame {
         listaRequisito.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    public void setIdProjeto(int idProjeto) {
+        this.idProjeto = idProjeto;
+    }
 
     /**
      * @param args the command line arguments

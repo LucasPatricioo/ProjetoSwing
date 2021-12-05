@@ -9,8 +9,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import projetoaula.FrmListaUsuarios;
+import projetoaula.FrmVerUsuario;
 import projetoaula.Model.usuario;
 
 
@@ -202,7 +205,8 @@ public class JDBCusuario {
             
             ps.setString(1, String.valueOf(idUsuario));
             ps.execute();
-        }catch(SQLException ex){
+        }
+        catch(SQLException ex){
             ex.printStackTrace();
         }
     }
