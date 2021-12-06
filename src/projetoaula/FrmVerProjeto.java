@@ -266,6 +266,10 @@ public class FrmVerProjeto extends javax.swing.JFrame {
             }
         });
     }
+
+    public static int getIdProjeto() {
+        return idProjeto;
+    }
     
         public void carregarDadosProjeto(String idProjeto) {
         lblIdProjeto.setText(idProjeto);

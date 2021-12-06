@@ -4,6 +4,12 @@
  */
 package projetoaula;
 
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import projetoaula.Model.requisito;
+import projetoaula.Persistencia.JDBCrequisito;
+import projetoaula.Persistencia.conexao;
+
 /**
  *
  * @author lucas
@@ -15,6 +21,7 @@ public class FrmListaRequisitos extends javax.swing.JFrame {
      */
     public FrmListaRequisitos() {
         initComponents();
+        carregarLista();
     }
 
     /**
@@ -28,9 +35,9 @@ public class FrmListaRequisitos extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        listReq = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtIdRequisito = new javax.swing.JTextField();
         btnPesquisaRequisito = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
 
@@ -39,17 +46,12 @@ public class FrmListaRequisitos extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 33)); // NOI18N
         jLabel1.setText("Lista de Requisitos do Projeto");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(listReq);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
-        jLabel2.setText("Requisito:");
+        jLabel2.setText("Id Requisito: ");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtIdRequisito.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
 
         btnPesquisaRequisito.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         btnPesquisaRequisito.setText("Pesquisar");
@@ -72,22 +74,23 @@ public class FrmListaRequisitos extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(112, 112, 112)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnPesquisaRequisito, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(32, 32, 32))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(92, 92, 92)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtIdRequisito)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(btnPesquisaRequisito, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(145, 145, 145)
+                            .addComponent(jLabel1))))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,11 +102,11 @@ public class FrmListaRequisitos extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdRequisito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisaRequisito))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addComponent(btnSair)
-                .addGap(26, 26, 26))
+                .addGap(28, 28, 28))
         );
 
         pack();
@@ -111,8 +114,8 @@ public class FrmListaRequisitos extends javax.swing.JFrame {
 
     private void btnPesquisaRequisitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaRequisitoActionPerformed
         // TODO add your handling code here:
-        
         FrmVerRequisitoProjeto verRequisito = new FrmVerRequisitoProjeto();
+        verRequisito.carregarInformacoes(txtIdRequisito.getText(), new FrmVerProjeto().getIdProjeto());
         verRequisito.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnPesquisaRequisitoActionPerformed
@@ -158,14 +161,32 @@ public class FrmListaRequisitos extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void carregarLista(){
+                
+        DefaultListModel model = new DefaultListModel();
+        
+        conexao connect = new conexao();
+        JDBCrequisito bd = new JDBCrequisito(connect.abrirConexao());
+        ArrayList<requisito> requerimentList = bd.buscarTodosRequisitos();
+        connect.fecharConexao();
+        
+        for(int i = 0; i<requerimentList.size(); i++){
+            requisito requeriment = requerimentList.get(i);
+            model.addElement("ID: " + requeriment.getIdRequisito() + " | Nome Requisito:  " + requeriment.getNome());
+        }
+        listReq.setModel(model);
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPesquisaRequisito;
     private javax.swing.JButton btnSair;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JList<String> listReq;
+    private javax.swing.JTextField txtIdRequisito;
     // End of variables declaration//GEN-END:variables
 }

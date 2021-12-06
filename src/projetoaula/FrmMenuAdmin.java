@@ -211,6 +211,10 @@ public class FrmMenuAdmin extends javax.swing.JFrame {
         lblIdUsuario.setText(idUsuario);
         idLogado = idUsuario;
     }
+
+    public static String getIdLogado() {
+        return idLogado;
+    }
     
     /**
      * @param args the command line arguments

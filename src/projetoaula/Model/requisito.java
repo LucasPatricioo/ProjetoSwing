@@ -6,6 +6,7 @@ package projetoaula.Model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  *
@@ -16,8 +17,8 @@ public class requisito {
     private String nome;
     private String modulo;
     private String funcionalidade;
-    private LocalDate dataCriacao;
-    private LocalDateTime ultimaMod;
+    private Date dataCriacao;
+    private Date ultimaMod;
     private String ultimaModAut;
     private String versao;
     private String prioridade;
@@ -27,8 +28,9 @@ public class requisito {
     private String fase;
     private String descricao;
     private int idProjeto;
+    private int idUsuario;
 
-    public requisito(int idRequisito, String nome, String modulo, String funcionalidade, LocalDate dataCriacao, LocalDateTime ultimaMod, String ultimaModAut, String versao, String prioridade, String complexibilidade, String esfEstimado, String estado, String fase, String descricao, int idProjeto) {
+    public requisito(int idRequisito, String nome, String modulo, String funcionalidade, Date dataCriacao, Date ultimaMod, String ultimaModAut, String versao, String prioridade, String complexibilidade, String esfEstimado, String estado, String fase, String descricao, int idProjeto, int idUsuario) {
         this.idRequisito = idRequisito;
         this.nome = nome;
         this.modulo = modulo;
@@ -44,9 +46,10 @@ public class requisito {
         this.fase = fase;
         this.descricao = descricao;
         this.idProjeto = idProjeto;
+        this.idUsuario = idUsuario;
     }
 
-    public requisito(String nome, String modulo, String funcionalidade, LocalDate dataCriacao, LocalDateTime ultimaMod, String ultimaModAut, String versao, String prioridade, String complexibilidade, String esfEstimado, String estado, String fase, String descricao, int idProjeto) {
+    public requisito(String nome, String modulo, String funcionalidade, Date dataCriacao, Date ultimaMod, String ultimaModAut, String versao, String prioridade, String complexibilidade, String esfEstimado, String estado, String fase, String descricao, int idProjeto, int idUsuario) {
         this.nome = nome;
         this.modulo = modulo;
         this.funcionalidade = funcionalidade;
@@ -61,9 +64,18 @@ public class requisito {
         this.fase = fase;
         this.descricao = descricao;
         this.idProjeto = idProjeto;
+        this.idUsuario = idUsuario;
     }
 
     public requisito() {
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     
@@ -99,19 +111,19 @@ public class requisito {
         this.funcionalidade = funcionalidade;
     }
 
-    public LocalDate getDataCriacao() {
+    public Date getDataCriacao() {
         return dataCriacao;
     }
 
-    public void setDataCriacao(LocalDate dataCriacao) {
+    public void setDataCriacao(Date dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 
-    public LocalDateTime getUltimaMod() {
+    public Date getUltimaMod() {
         return ultimaMod;
     }
 
-    public void setUltimaMod(LocalDateTime ultimaMod) {
+    public void setUltimaMod(Date ultimaMod) {
         this.ultimaMod = ultimaMod;
     }
 
