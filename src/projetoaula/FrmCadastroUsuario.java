@@ -42,9 +42,10 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         txtTelefone = new javax.swing.JTextField();
         txtNomeDeUsuario = new javax.swing.JTextField();
         txtSenha = new javax.swing.JTextField();
-        btnGravarUser = new javax.swing.JButton();
+        btnGravarUserAdmin = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
         lblMsg = new javax.swing.JLabel();
+        btnGravarUser1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,11 +77,11 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
 
         txtSenha.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
 
-        btnGravarUser.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
-        btnGravarUser.setText("Gravar");
-        btnGravarUser.addActionListener(new java.awt.event.ActionListener() {
+        btnGravarUserAdmin.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        btnGravarUserAdmin.setText("Gravar Admin");
+        btnGravarUserAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGravarUserActionPerformed(evt);
+                btnGravarUserAdminActionPerformed(evt);
             }
         });
 
@@ -95,6 +96,14 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         lblMsg.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lblMsg.setForeground(new java.awt.Color(255, 0, 51));
 
+        btnGravarUser1.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        btnGravarUser1.setText("Gravar Usuário");
+        btnGravarUser1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGravarUser1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -104,35 +113,40 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtEmailUsuario))
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtEmailUsuario))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtTelefone))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtNomeCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtNomeDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtSenha))
+                            .addComponent(lblMsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtTelefone))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtNomeCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnGravarUser, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtNomeDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtSenha))
-                    .addComponent(lblMsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGravarUserAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnGravarUser1)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
@@ -157,11 +171,12 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblMsg))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGravarUser)
-                    .addComponent(btnVoltar))
-                .addContainerGap(54, Short.MAX_VALUE))
+                    .addComponent(btnVoltar)
+                    .addComponent(btnGravarUser1)
+                    .addComponent(btnGravarUserAdmin))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         pack();
@@ -174,7 +189,7 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnVoltarActionPerformed
 
-    private void btnGravarUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarUserActionPerformed
+    private void btnGravarUserAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarUserAdminActionPerformed
         // TODO add your handling code here:
         
         //Realiza o registro de um novo usuário
@@ -183,9 +198,10 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         String nomeCompleto = txtNomeCompleto.getText();
         String telefone = txtTelefone.getText();
         String email = txtEmailUsuario.getText();
+        String tipoUsuario = "A";
         
         try{
-        usuario user = new usuario(nomeUsuario, senha, nomeCompleto, email, telefone);
+        usuario user = new usuario(nomeUsuario, senha, nomeCompleto, email, telefone, tipoUsuario);
         conexao conect = new conexao();
         JDBCusuario bd = new JDBCusuario(conect.abrirConexao());
         bd.cadastrarUsuario(user);
@@ -196,7 +212,34 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
         catch(Exception ex){
             lblMsg.setText("Falha ao gerar novo usuário, favor tente novamente");
         }
-    }//GEN-LAST:event_btnGravarUserActionPerformed
+    }//GEN-LAST:event_btnGravarUserAdminActionPerformed
+
+    private void btnGravarUser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarUser1ActionPerformed
+        // TODO add your handling code here:
+        
+        //Realiza o registro de um novo usuário
+        String nomeUsuario = txtNomeDeUsuario.getText();
+        String senha = txtSenha.getText();
+        String nomeCompleto = txtNomeCompleto.getText();
+        String telefone = txtTelefone.getText();
+        String email = txtEmailUsuario.getText();
+        String tipoUsuario = "U";
+        
+        try{
+        usuario user = new usuario(nomeUsuario, senha, nomeCompleto, email, telefone, tipoUsuario);
+        conexao conect = new conexao();
+        JDBCusuario bd = new JDBCusuario(conect.abrirConexao());
+        bd.cadastrarUsuario(user);
+        conect.fecharConexao();
+        
+        //Volta para a tela anterior.
+        lblMsg.setText("Usuário gerado com sucesso!");}
+        catch(Exception ex){
+            lblMsg.setText("Falha ao gerar novo usuário, favor tente novamente");
+        }
+        
+        
+    }//GEN-LAST:event_btnGravarUser1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -234,7 +277,8 @@ public class FrmCadastroUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnGravarUser;
+    private javax.swing.JButton btnGravarUser1;
+    private javax.swing.JButton btnGravarUserAdmin;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

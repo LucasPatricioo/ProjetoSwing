@@ -108,10 +108,17 @@ public class FrmLogin extends javax.swing.JFrame {
         conect.fecharConexao();
         
         if(user != null){
-            FrmMenuAdmin menuAdmin = new FrmMenuAdmin();
-            menuAdmin.setLblIdUsuario(String.valueOf(user.getIdUsuario()));
-            menuAdmin.setVisible(true);
-            this.setVisible(false);
+            if("A".equals(user.getTipoUsuario())){
+                FrmMenuAdmin menuAdmin = new FrmMenuAdmin();
+                menuAdmin.setLblIdUsuario(String.valueOf(user.getIdUsuario()));
+                menuAdmin.setVisible(true);
+                this.setVisible(false);
+            }else if("U".equals(user.getTipoUsuario())){
+                FrmMenuUsuario menuUsuario = new FrmMenuUsuario();
+                menuUsuario.carregarInformacoes(String.valueOf(user.getIdUsuario()));
+                menuUsuario.setVisible(true);
+                this.setVisible(false);
+            }
         }else{
             lblMsg.setText("Usuário / senha incorretos.");
         }

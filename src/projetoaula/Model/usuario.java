@@ -15,17 +15,28 @@ public class usuario {
     private String nomeCompleto;
     private String email;
     private String telefone;
+    private String tipoUsuario; 
     
     public usuario(){
     }
 
-    public usuario(int idUsuario, String nomeUsuario, String senha, String nomeCompleto, String email, String telefone) {
+    public usuario(int idUsuario, String nomeUsuario, String senha, String nomeCompleto, String email, String telefone, String tipoUsuario) {
         this.idUsuario = idUsuario;
         this.nomeUsuario = nomeUsuario;
         this.senha = senha;
         this.nomeCompleto = nomeCompleto;
         this.email = email;
         this.telefone = telefone;
+        this.tipoUsuario = tipoUsuario;
+    }
+
+    public usuario(String nomeUsuario, String senha, String nomeCompleto, String email, String telefone, String tipoUsuario) {
+        this.nomeUsuario = nomeUsuario;
+        this.senha = senha;
+        this.nomeCompleto = nomeCompleto;
+        this.email = email;
+        this.telefone = telefone;
+        this.tipoUsuario = tipoUsuario;
     }
 
     public usuario(String nomeUsuario, String senha, String nomeCompleto, String email, String telefone) {
@@ -34,6 +45,10 @@ public class usuario {
         this.nomeCompleto = nomeCompleto;
         this.email = email;
         this.telefone = telefone;
+    }
+
+    public String getTipoUsuario() {
+        return tipoUsuario;
     }
 
     public int getIdUsuario() {

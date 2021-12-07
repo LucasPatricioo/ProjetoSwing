@@ -31,7 +31,7 @@ public class JDBCusuario {
     }
     
     public void cadastrarUsuario(usuario user){
-        String sql = "insert into tblusuario(nomeCompleto, nomeUsuario,email,senha,telefone) values(?,?,?,?,?)";
+        String sql = "insert into tblusuario(nomeCompleto, nomeUsuario,email,senha,telefone,tipoUsuario) values(?,?,?,?,?,?)";
         PreparedStatement ps;
         
         try{
@@ -42,6 +42,7 @@ public class JDBCusuario {
             ps.setString(3, user.getEmail());
             ps.setString(4, user.getSenha());
             ps.setString(5, user.getTelefone());
+            ps.setString(6, user.getTipoUsuario());
             
             ps.execute();
         }catch(SQLException ex){
@@ -69,8 +70,9 @@ public class JDBCusuario {
                 String nomeCompleto = rs.getString("nomeCompleto");
                 String telefone = rs.getString("telefone");
                 String email = rs.getString("email");
-                
-                user = new usuario(idUsuario, nomeUsuarioRecebido, senhaRecebida, nomeCompleto, email, telefone);
+                String tipoUsuario = rs.getString("tipoUsuario");
+                 
+                user = new usuario(idUsuario, nomeUsuarioRecebido, senhaRecebida, nomeCompleto, email, telefone, tipoUsuario);
             }
             
         }catch(SQLException ex){
@@ -99,8 +101,10 @@ public class JDBCusuario {
                 String nomeCompleto = rs.getString("nomeCompleto");
                 String telefone = rs.getString("telefone");
                 String email = rs.getString("email");
+                String tipoUsuario = rs.getString("tipoUsuario");
+                 
                 
-                user = new usuario(idUsuario, nomeUsuarioRecebido, senhaRecebida, nomeCompleto, email, telefone);
+                user = new usuario(idUsuario, nomeUsuarioRecebido, senhaRecebida, nomeCompleto, email, telefone,tipoUsuario);
             }
             
         }catch(SQLException ex){
@@ -130,8 +134,10 @@ public class JDBCusuario {
                 String nomeCompleto = rs.getString("nomeCompleto");
                 String telefone = rs.getString("telefone");
                 String email = rs.getString("email");
+                String tipoUsuario = rs.getString("tipoUsuario");
+                 
                 
-                user = new usuario(idUsuario, nomeUsuarioRecebido, senhaRecebida, nomeCompleto, email, telefone);
+                user = new usuario(idUsuario, nomeUsuarioRecebido, senhaRecebida, nomeCompleto, email, telefone, tipoUsuario);
             }
             
         }catch(SQLException ex){
@@ -158,8 +164,9 @@ public class JDBCusuario {
                  String nomeCompleto = resultado.getString("nomeCompleto");
                  String email = resultado.getString("email");
                  String telefone = resultado.getString("telefone");
+                 String tipoUsuario = resultado.getString("tipoUsuario");
                  
-                 usuario user = new usuario(idUsuario, nomeUsuario, senha, nomeCompleto, email, telefone);
+                 usuario user = new usuario(idUsuario, nomeUsuario, senha, nomeCompleto, email, telefone,tipoUsuario);
                  userList.add(user);
              }
         }catch(SQLException ex){
