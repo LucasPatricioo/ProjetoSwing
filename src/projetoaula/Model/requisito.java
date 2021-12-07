@@ -29,8 +29,9 @@ public class requisito {
     private String descricao;
     private int idProjeto;
     private int idUsuario;
+    private String autor;
 
-    public requisito(int idRequisito, String nome, String modulo, String funcionalidade, Date dataCriacao, Date ultimaMod, String ultimaModAut, String versao, String prioridade, String complexibilidade, String esfEstimado, String estado, String fase, String descricao, int idProjeto, int idUsuario) {
+    public requisito(int idRequisito, String nome, String modulo, String funcionalidade, Date dataCriacao, Date ultimaMod, String ultimaModAut, String versao, String prioridade, String complexibilidade, String esfEstimado, String estado, String fase, String descricao, int idProjeto, int idUsuario, String autor) {
         this.idRequisito = idRequisito;
         this.nome = nome;
         this.modulo = modulo;
@@ -47,9 +48,10 @@ public class requisito {
         this.descricao = descricao;
         this.idProjeto = idProjeto;
         this.idUsuario = idUsuario;
+        this.autor = autor;
     }
 
-    public requisito(String nome, String modulo, String funcionalidade, Date dataCriacao, Date ultimaMod, String ultimaModAut, String versao, String prioridade, String complexibilidade, String esfEstimado, String estado, String fase, String descricao, int idProjeto, int idUsuario) {
+    public requisito(String nome, String modulo, String funcionalidade, Date dataCriacao, Date ultimaMod, String ultimaModAut, String versao, String prioridade, String complexibilidade, String esfEstimado, String estado, String fase, String descricao, int idProjeto, int idUsuario, String autor) {
         this.nome = nome;
         this.modulo = modulo;
         this.funcionalidade = funcionalidade;
@@ -65,11 +67,35 @@ public class requisito {
         this.descricao = descricao;
         this.idProjeto = idProjeto;
         this.idUsuario = idUsuario;
+        this.autor = autor;
+    }
+
+    public requisito(String nome, String modulo, String funcionalidade, Date ultimaMod, String ultimaModAut, String versao, String prioridade, String complexibilidade, String esfEstimado, String estado, String fase, String descricao) {
+        this.nome = nome;
+        this.modulo = modulo;
+        this.funcionalidade = funcionalidade;
+        this.ultimaMod = ultimaMod;
+        this.ultimaModAut = ultimaModAut;
+        this.versao = versao;
+        this.prioridade = prioridade;
+        this.complexibilidade = complexibilidade;
+        this.esfEstimado = esfEstimado;
+        this.estado = estado;
+        this.fase = fase;
+        this.descricao = descricao;
     }
 
     public requisito() {
     }
+    
+    public String getAutor() {
+        return autor;
+    }
 
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+    
     public int getIdUsuario() {
         return idUsuario;
     }

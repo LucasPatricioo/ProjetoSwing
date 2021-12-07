@@ -96,7 +96,7 @@ public class FrmNovoRequisitoProjeto extends javax.swing.JFrame {
         txtDataAlteracao.setEnabled(false);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
-        jLabel5.setText("Autor da última modificação;");
+        jLabel5.setText("Autor da última modificação");
 
         txtAutorAlteracao.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         txtAutorAlteracao.setEnabled(false);
@@ -346,11 +346,12 @@ public class FrmNovoRequisitoProjeto extends javax.swing.JFrame {
         usuario user = bdUser.buscarUsuario(project.getIdProprietario());
         connect.fecharConexao();
         
+        String autor = user.getNomeCompleto();
         String autorAlteracao = user.getNomeUsuario();
         Date ultimaAlteracao = new Date();
         
         int idUsuarioLogado = Integer.parseInt(new FrmMenuAdmin().getIdLogado());
-        requisito requisite = new requisito(nomeRequisito, modulo, funcionalidades, dataCriacao, ultimaAlteracao, autorAlteracao , versao, prioridade, complexibilidade, esfEstimado, estado, fase, descricao, idProjeto, idUsuarioLogado);
+        requisito requisite = new requisito(nomeRequisito, modulo, funcionalidades, dataCriacao, ultimaAlteracao, autorAlteracao , versao, prioridade, complexibilidade, esfEstimado, estado, fase, descricao, idProjeto, idUsuarioLogado, autor);
         connect = new conexao();
         JDBCrequisito bdRequisito = new JDBCrequisito(connect.abrirConexao());
         bdRequisito.cadastrarRequisito(requisite);

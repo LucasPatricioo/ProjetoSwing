@@ -6,6 +6,7 @@ package projetoaula;
 
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
 import projetoaula.Model.requisito;
 import projetoaula.Persistencia.JDBCrequisito;
 import projetoaula.Persistencia.conexao;
@@ -40,6 +41,7 @@ public class FrmListaRequisitos extends javax.swing.JFrame {
         txtIdRequisito = new javax.swing.JTextField();
         btnPesquisaRequisito = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
+        lblMsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,27 +71,33 @@ public class FrmListaRequisitos extends javax.swing.JFrame {
             }
         });
 
+        lblMsg.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblMsg.setForeground(new java.awt.Color(255, 0, 0));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(92, 92, 92)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtIdRequisito)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(btnPesquisaRequisito, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(145, 145, 145)
-                            .addComponent(jLabel1))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(145, 145, 145)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(92, 92, 92)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblMsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtIdRequisito)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnPesquisaRequisito, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnSair, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(108, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -105,7 +113,9 @@ public class FrmListaRequisitos extends javax.swing.JFrame {
                     .addComponent(txtIdRequisito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisaRequisito))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
-                .addComponent(btnSair)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSair)
+                    .addComponent(lblMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28))
         );
 
@@ -115,7 +125,7 @@ public class FrmListaRequisitos extends javax.swing.JFrame {
     private void btnPesquisaRequisitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaRequisitoActionPerformed
         // TODO add your handling code here:
         FrmVerRequisitoProjeto verRequisito = new FrmVerRequisitoProjeto();
-        verRequisito.carregarInformacoes(txtIdRequisito.getText(), new FrmVerProjeto().getIdProjeto());
+        verRequisito.carregarInformacoes(txtIdRequisito.getText());
         verRequisito.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnPesquisaRequisitoActionPerformed
@@ -168,7 +178,7 @@ public class FrmListaRequisitos extends javax.swing.JFrame {
         
         conexao connect = new conexao();
         JDBCrequisito bd = new JDBCrequisito(connect.abrirConexao());
-        ArrayList<requisito> requerimentList = bd.buscarTodosRequisitos();
+        ArrayList<requisito> requerimentList = bd.buscarTodosRequisitos(new FrmVerProjeto().getIdProjeto());
         connect.fecharConexao();
         
         for(int i = 0; i<requerimentList.size(); i++){
@@ -176,6 +186,10 @@ public class FrmListaRequisitos extends javax.swing.JFrame {
             model.addElement("ID: " + requeriment.getIdRequisito() + " | Nome Requisito:  " + requeriment.getNome());
         }
         listReq.setModel(model);
+    }
+
+    public void setLblMsg(String mensagem) {
+        lblMsg.setText(mensagem);
     }
     
     
@@ -186,6 +200,7 @@ public class FrmListaRequisitos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblMsg;
     private javax.swing.JList<String> listReq;
     private javax.swing.JTextField txtIdRequisito;
     // End of variables declaration//GEN-END:variables

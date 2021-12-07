@@ -5,9 +5,12 @@
 package projetoaula;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JLabel;
+import projetoaula.Model.projeto;
 import projetoaula.Model.requisito;
 import projetoaula.Model.usuario;
+import projetoaula.Persistencia.JDBCprojeto;
 import projetoaula.Persistencia.JDBCrequisito;
 import projetoaula.Persistencia.JDBCusuario;
 import projetoaula.Persistencia.conexao;
@@ -66,8 +69,8 @@ public class FrmVerRequisitoProjeto extends javax.swing.JFrame {
         txtAutorMod = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         lblIdReq = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescricao = new javax.swing.JTextArea();
@@ -129,6 +132,7 @@ public class FrmVerRequisitoProjeto extends javax.swing.JFrame {
         jLabel2.setText("Funcionalidades");
 
         txtAutor.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtAutor.setEnabled(false);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         jLabel3.setText("Autor");
@@ -140,7 +144,7 @@ public class FrmVerRequisitoProjeto extends javax.swing.JFrame {
         txtUltimaMod.setEnabled(false);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
-        jLabel5.setText("Autor da última modificação;");
+        jLabel5.setText("Autor da última modificação");
 
         txtAutorMod.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         txtAutorMod.setEnabled(false);
@@ -155,11 +159,21 @@ public class FrmVerRequisitoProjeto extends javax.swing.JFrame {
 
         lblIdReq.setFont(new java.awt.Font("Tahoma", 0, 33)); // NOI18N
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
-        jButton3.setText("Excluir");
+        btnExcluir.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
-        jButton4.setText("Salvar Alterações");
+        btnSalvar.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        btnSalvar.setText("Salvar Alterações");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 33)); // NOI18N
         jLabel16.setText("- Consulta Requisito");
@@ -237,9 +251,9 @@ public class FrmVerRequisitoProjeto extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(txtAutorMod, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(176, 176, 176)
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -316,8 +330,8 @@ public class FrmVerRequisitoProjeto extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(btnExcluir)
+                    .addComponent(btnSalvar))
                 .addContainerGap(154, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -335,6 +349,54 @@ public class FrmVerRequisitoProjeto extends javax.swing.JFrame {
         menuAdmin.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+        
+        conexao connect = new conexao();
+        JDBCrequisito bd = new JDBCrequisito(connect.abrirConexao());
+        bd.DeletarRequisito(idRequisito);
+        connect.fecharConexao();
+        
+        FrmListaRequisitos listaRequisitos = new FrmListaRequisitos();
+        listaRequisitos.setLblMsg("Requisito deletado com sucesso!");
+        listaRequisitos.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // TODO add your handling code here:
+        String nomeRequisito = txtNomeReq.getText();
+        String fase = txtFase.getText();
+        String prioridade = txtPrioridade.getText();
+        String estado = txtEstado.getText();
+        String modulo = txtModulo.getText();
+        String funcionalidades = txtFuncionalidade.getText();
+        String descricao = txtDescricao.getText();
+        String esfEstimado = txtEsfHoras.getText();
+        String versao = txtVersao.getText();
+        String complexibilidade = txtComplexidade.getText();
+
+        
+        conexao connect = new conexao();
+        JDBCusuario bdUser = new JDBCusuario(connect.abrirConexao());
+        usuario user = bdUser.buscarUsuario(Integer.parseInt(new FrmMenuAdmin().getIdLogado()));
+        connect.fecharConexao();
+        
+        String autorAlteracao = user.getNomeUsuario();
+        Date ultimaAlteracao = new Date();
+        
+        requisito requisite = new requisito(nomeRequisito, modulo, funcionalidades, ultimaAlteracao, autorAlteracao , versao, prioridade, complexibilidade, esfEstimado, estado, fase, descricao);
+        connect = new conexao();
+        JDBCrequisito bdRequisito = new JDBCrequisito(connect.abrirConexao());
+        bdRequisito.AtualizarDadosRequisito(idRequisito, requisite);
+        connect.fecharConexao(); 
+        
+        FrmListaRequisitos listaRequisitos = new FrmListaRequisitos();
+        listaRequisitos.setLblMsg("Requisito atualizado com sucesso!");
+        listaRequisitos.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -382,13 +444,7 @@ public class FrmVerRequisitoProjeto extends javax.swing.JFrame {
         connect.fecharConexao();
         
         if(requeriment != null){
-            connect = new conexao();
-            JDBCusuario bdUsuario = new JDBCusuario(connect.abrirConexao()); 
-            usuario user = bdUsuario.buscarUsuario(requeriment.getIdUsuario());
-            connect.fecharConexao();
-            if(user != null){
-                txtAutor.setText(user.getNomeCompleto());
-            }
+            txtAutor.setText(requeriment.getAutor());
             txtNomeReq.setText(requeriment.getNome());
             txtDataCriacao.setText(formato.format(requeriment.getDataCriacao()));
             txtFase.setText(requeriment.getFase());
@@ -403,14 +459,12 @@ public class FrmVerRequisitoProjeto extends javax.swing.JFrame {
             txtFuncionalidade.setText(requeriment.getFuncionalidade());
             txtDescricao.setText(requeriment.getDescricao());
         }
-        
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
