@@ -128,7 +128,7 @@ public class FrmMenuRequisitosUsuario extends javax.swing.JFrame {
     private void btnPesquisaRequisitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaRequisitoActionPerformed
         // TODO add your handling code here:
         FrmVerRequisitoProjetoUsuario verRequisito = new FrmVerRequisitoProjetoUsuario();
-        //verRequisito.carregarInformacoes(txtIdRequisito.getText());
+        verRequisito.carregarInformacoes(txtIdRequisito.getText());
         verRequisito.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnPesquisaRequisitoActionPerformed

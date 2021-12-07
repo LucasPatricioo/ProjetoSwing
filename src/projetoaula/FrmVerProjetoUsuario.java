@@ -24,6 +24,8 @@ public class FrmVerProjetoUsuario extends javax.swing.JFrame {
      */
     public FrmVerProjetoUsuario() {
         initComponents();
+        
+        carregarDadosProjeto(String.valueOf(idProjeto));
     }
 
     /**

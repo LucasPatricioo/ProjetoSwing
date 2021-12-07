@@ -4,14 +4,29 @@
  */
 package projetoaula;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JLabel;
+import projetoaula.Model.projeto;
+import projetoaula.Model.requisito;
+import projetoaula.Model.usuario;
+import projetoaula.Persistencia.JDBCprojeto;
+import projetoaula.Persistencia.JDBCrequisito;
+import projetoaula.Persistencia.JDBCusuario;
+import projetoaula.Persistencia.conexao;
+
 /**
  *
  * @author lucas
  */
 public class FrmVerRequisitoProjetoUsuario extends javax.swing.JFrame {
 
+    private int idRequisito;
+    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
+    
+    
     /**
-     * Creates new form FrmVerRequisitoProjetoUsuario
+     * Creates new form FrmVerRequisitoProjeto
      */
     public FrmVerRequisitoProjetoUsuario() {
         initComponents();
@@ -26,21 +41,298 @@ public class FrmVerRequisitoProjetoUsuario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel6 = new javax.swing.JLabel();
+        txtVersao = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtPrioridade = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtComplexidade = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        txtEsfHoras = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txtEstado = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        txtFase = new javax.swing.JTextField();
+        txtNomeReq = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        txtModulo = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        txtDataCriacao = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtAutor = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtUltimaMod = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtAutorMod = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        lblIdReq = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtDescricao = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtFuncionalidade = new javax.swing.JTextArea();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        jLabel6.setText("Versão");
+
+        txtVersao.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtVersao.setEnabled(false);
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        jLabel7.setText("Prioridade");
+
+        txtPrioridade.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtPrioridade.setEnabled(false);
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        jLabel8.setText("Complexidade");
+
+        txtComplexidade.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtComplexidade.setEnabled(false);
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        jLabel9.setText("Esforço estimado em horas");
+
+        txtEsfHoras.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtEsfHoras.setEnabled(false);
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        jLabel10.setText("Estado");
+
+        txtEstado.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtEstado.setEnabled(false);
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        jLabel11.setText("Fase");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        jLabel1.setText("Nome Requisito: ");
+
+        txtFase.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtFase.setEnabled(false);
+
+        txtNomeReq.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtNomeReq.setEnabled(false);
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        jLabel12.setText("Módulo");
+
+        txtModulo.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtModulo.setEnabled(false);
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        jLabel13.setText("Data de criação");
+
+        txtDataCriacao.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtDataCriacao.setEnabled(false);
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        jLabel14.setText("Descrição");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        jLabel2.setText("Funcionalidades");
+
+        txtAutor.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtAutor.setEnabled(false);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        jLabel3.setText("Autor");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        jLabel4.setText("Data da última alteração");
+
+        txtUltimaMod.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtUltimaMod.setEnabled(false);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        jLabel5.setText("Autor da última modificação");
+
+        txtAutorMod.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        txtAutorMod.setEnabled(false);
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
+        jButton2.setText("Voltar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        lblIdReq.setFont(new java.awt.Font("Tahoma", 0, 33)); // NOI18N
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 33)); // NOI18N
+        jLabel16.setText("- Consulta Requisito");
+
+        txtDescricao.setColumns(20);
+        txtDescricao.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        txtDescricao.setRows(5);
+        txtDescricao.setEnabled(false);
+        jScrollPane1.setViewportView(txtDescricao);
+
+        txtFuncionalidade.setColumns(20);
+        txtFuncionalidade.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        txtFuncionalidade.setRows(5);
+        txtFuncionalidade.setEnabled(false);
+        jScrollPane2.setViewportView(txtFuncionalidade);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1124, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtDataCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtNomeReq, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtComplexidade, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtVersao, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtEsfHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtUltimaMod, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblIdReq)
+                                .addGap(25, 25, 25)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtFase, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtPrioridade, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtModulo, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtAutorMod, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 111, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 732, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 732, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(177, 177, 177))))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(488, Short.MAX_VALUE)
+                    .addComponent(jLabel16)
+                    .addGap(421, 421, 421)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 792, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(lblIdReq)
+                .addGap(74, 74, 74)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtNomeReq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(txtDataCriacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11)
+                    .addComponent(txtFase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(txtComplexidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtPrioridade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtVersao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtEsfHoras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(txtModulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtUltimaMod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtAutorMod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addComponent(jLabel2)
+                        .addGap(90, 90, 90)
+                        .addComponent(jLabel14))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(40, 40, 40)
+                .addComponent(jButton2)
+                .addContainerGap(132, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(16, 16, 16)
+                    .addComponent(jLabel16)
+                    .addContainerGap(783, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        FrmMenuRequisitosUsuario listaRequisitos = new FrmMenuRequisitosUsuario();
+        listaRequisitos.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -68,6 +360,7 @@ public class FrmVerRequisitoProjetoUsuario extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FrmVerRequisitoProjetoUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -77,6 +370,67 @@ public class FrmVerRequisitoProjetoUsuario extends javax.swing.JFrame {
         });
     }
 
+    public void carregarInformacoes(String idRequisito) {
+        lblIdReq.setText(idRequisito);
+        
+        this.idRequisito = Integer.parseInt(lblIdReq.getText());
+        
+        conexao connect = new conexao();
+        JDBCrequisito bd = new JDBCrequisito(connect.abrirConexao());
+        requisito requeriment = bd.buscarRequisito(this.idRequisito);
+        connect.fecharConexao();
+        
+        if(requeriment != null){
+            txtAutor.setText(requeriment.getAutor());
+            txtNomeReq.setText(requeriment.getNome());
+            txtDataCriacao.setText(formato.format(requeriment.getDataCriacao()));
+            txtFase.setText(requeriment.getFase());
+            txtComplexidade.setText(requeriment.getComplexibilidade());
+            txtPrioridade.setText(requeriment.getPrioridade());
+            txtVersao.setText(requeriment.getVersao());
+            txtEstado.setText(requeriment.getEstado());
+            txtEsfHoras.setText(requeriment.getEsfEstimado());
+            txtModulo.setText(requeriment.getModulo());
+            txtUltimaMod.setText(formato.format(requeriment.getUltimaMod()));
+            txtAutorMod.setText(requeriment.getUltimaModAut());
+            txtFuncionalidade.setText(requeriment.getFuncionalidade());
+            txtDescricao.setText(requeriment.getDescricao());
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblIdReq;
+    private javax.swing.JTextField txtAutor;
+    private javax.swing.JTextField txtAutorMod;
+    private javax.swing.JTextField txtComplexidade;
+    private javax.swing.JTextField txtDataCriacao;
+    private javax.swing.JTextArea txtDescricao;
+    private javax.swing.JTextField txtEsfHoras;
+    private javax.swing.JTextField txtEstado;
+    private javax.swing.JTextField txtFase;
+    private javax.swing.JTextArea txtFuncionalidade;
+    private javax.swing.JTextField txtModulo;
+    private javax.swing.JTextField txtNomeReq;
+    private javax.swing.JTextField txtPrioridade;
+    private javax.swing.JTextField txtUltimaMod;
+    private javax.swing.JTextField txtVersao;
     // End of variables declaration//GEN-END:variables
 }
