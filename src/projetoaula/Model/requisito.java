@@ -30,6 +30,7 @@ public class requisito {
     private int idProjeto;
     private int idUsuario;
     private String autor;
+    private String nomeUsuario;
 
     public requisito(int idRequisito, String nome, String modulo, String funcionalidade, Date dataCriacao, Date ultimaMod, String ultimaModAut, String versao, String prioridade, String complexibilidade, String esfEstimado, String estado, String fase, String descricao, int idProjeto, int idUsuario, String autor) {
         this.idRequisito = idRequisito;
@@ -69,6 +70,25 @@ public class requisito {
         this.idUsuario = idUsuario;
         this.autor = autor;
     }
+    
+    public requisito(int idRequisito, String nome, String modulo, String funcionalidade, Date dataCriacao, Date ultimaMod, String ultimaModAut, String versao, String prioridade, String complexibilidade, String esfEstimado, String estado, String fase, String descricao, int idProjeto, int idUsuario) {
+        this.idRequisito = idRequisito;
+        this.nome = nome;
+        this.modulo = modulo;
+        this.funcionalidade = funcionalidade;
+        this.dataCriacao = dataCriacao;
+        this.ultimaMod = ultimaMod;
+        this.ultimaModAut = ultimaModAut;
+        this.versao = versao;
+        this.prioridade = prioridade;
+        this.complexibilidade = complexibilidade;
+        this.esfEstimado = esfEstimado;
+        this.estado = estado;
+        this.fase = fase;
+        this.descricao = descricao;
+        this.idProjeto = idProjeto;
+        this.idUsuario = idUsuario;
+    }
 
     public requisito(String nome, String modulo, String funcionalidade, Date ultimaMod, String ultimaModAut, String versao, String prioridade, String complexibilidade, String esfEstimado, String estado, String fase, String descricao) {
         this.nome = nome;
@@ -84,6 +104,7 @@ public class requisito {
         this.fase = fase;
         this.descricao = descricao;
     }
+    
 
     public requisito() {
     }
@@ -102,6 +123,10 @@ public class requisito {
 
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public String getNomeUsuario() {
+        return nomeUsuario;
     }
 
     

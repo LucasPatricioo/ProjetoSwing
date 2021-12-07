@@ -78,6 +78,11 @@ public class FrmMenuAdmin extends javax.swing.JFrame {
 
         btnGerarRelatorio.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         btnGerarRelatorio.setText("Gerar Relatório");
+        btnGerarRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGerarRelatorioActionPerformed(evt);
+            }
+        });
 
         btnListarUsuarios.setFont(new java.awt.Font("Tahoma", 0, 23)); // NOI18N
         btnListarUsuarios.setText("Listar Usuários");
@@ -206,6 +211,13 @@ public class FrmMenuAdmin extends javax.swing.JFrame {
         login.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarRelatorioActionPerformed
+        // TODO add your handling code here:
+        FrmRelatorios relatorios = new FrmRelatorios();
+        relatorios.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnGerarRelatorioActionPerformed
     
     public void setLblIdUsuario(String idUsuario) {
         lblIdUsuario.setText(idUsuario);

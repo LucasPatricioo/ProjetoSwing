@@ -113,6 +113,40 @@ public class JDBCusuario {
         return user;
     }
     
+    public ArrayList<usuario> buscarUsuarioPorNome(String nome) {
+
+        ArrayList<usuario> userList = new ArrayList<usuario>();
+
+        String sql = "SELECT * FROM tblusuario where nomeCompleto like ?";
+
+        PreparedStatement ps;
+
+        try {
+            ps = this.conexao.prepareStatement(sql);
+
+            ps.setString(1, nome);
+
+            ResultSet resultado = ps.executeQuery();
+
+            while (resultado.next()) {
+                int idUsuario = resultado.getInt("idUsuario");
+                String nomeUsuario = resultado.getString("nomeUsuario");
+                String senha = resultado.getString("senha");
+                String nomeCompleto = resultado.getString("nomeCompleto");
+                String email = resultado.getString("email");
+                String telefone = resultado.getString("telefone");
+                String tipoUsuario = resultado.getString("tipoUsuario");
+
+                usuario user = new usuario(idUsuario, nomeUsuario, senha, nomeCompleto, email, telefone, tipoUsuario);
+                userList.add(user);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return userList;
+    }
+    
     public usuario buscarUsuario(String nomeUsuario, String senha){
 
         String sql = "select * from tblusuario where nomeUsuario=? and senha=?";

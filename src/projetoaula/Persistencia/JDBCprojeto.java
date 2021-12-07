@@ -102,6 +102,75 @@ public class JDBCprojeto {
         return projectList;
     }
     
+      public ArrayList<projeto> buscarProjetosPorNome(String nomeProject) {
+
+        ArrayList<projeto> listProject = new ArrayList<projeto>();
+
+        String sql = "select * from tblprojeto inner join tblusuario on tblusuario.idUsuario = tblprojeto.idProprietario where nome = ?";
+        PreparedStatement ps;
+        projeto project;
+
+        try {
+
+            ps = this.conexao.prepareStatement(sql);
+
+            ps.setString(1, nomeProject);
+
+            System.out.println(ps);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int idProjeto = rs.getInt("idProjeto");
+                String nomeProjeto = rs.getString("nome");
+                String descricao = rs.getString("descricao");
+                int idProprietario = Integer.parseInt(rs.getString("idProprietario"));
+                String nomeProprietario = rs.getString("nomeCompleto");
+
+                project = new projeto(idProjeto, nomeProjeto, descricao, idProprietario, nomeProprietario);
+                listProject.add(project);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return listProject;
+    }
+      
+       public ArrayList<projeto> buscarProjetoRelatorio(int idProjetoRecebido) {
+
+        ArrayList<projeto> projectList = new ArrayList<projeto>();
+        
+        String sql = "select * from tblprojeto inner join tblusuario on tblusuario.idUsuario = tblprojeto.idProprietario where idProjeto=?";
+        PreparedStatement ps;
+        projeto project = null;
+
+        try {
+            ps = this.conexao.prepareStatement(sql);
+
+            ps.setString(1, String.valueOf(idProjetoRecebido));
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int idProjeto = rs.getInt("idProjeto");
+                String nomeProjeto = rs.getString("nome");
+                String descricao = rs.getString("descricao");
+                int idProprietario = Integer.parseInt(rs.getString("idProprietario"));
+                String nomeProprietario = rs.getString("nomeCompleto");
+
+                project = new projeto(idProjeto, nomeProjeto, descricao, idProprietario, nomeProprietario);
+                projectList.add(project);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return projectList;
+    }
+       
+     
+     
     public ArrayList<projeto> buscarProjetosResponsavel(int idResponsavel){
 
         ArrayList<projeto> listProject = new ArrayList<projeto>();

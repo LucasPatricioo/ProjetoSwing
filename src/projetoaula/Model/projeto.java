@@ -13,6 +13,7 @@ public class projeto {
     private String nomeProjeto;
     private String descProjeto;
     private int idProprietario;
+    private String nomeProprietario;
 
     public projeto(int idProjeto, String nomeProjeto, String descProjeto, int idProprietario) {
         this.idProjeto = idProjeto;
@@ -26,6 +27,14 @@ public class projeto {
         this.descProjeto = descProjeto;
         this.idProprietario = idProprietario;
     }
+    public projeto(int idProjeto, String nomeProjeto, String descProjeto, int idProprietario, String nomeUser) {
+        this.idProjeto = idProjeto;
+        this.nomeProjeto = nomeProjeto;
+        this.descProjeto = descProjeto;
+        this.idProprietario = idProprietario;
+        this.nomeProprietario = nomeUser;
+
+    }
 
     public projeto() {
     }
@@ -36,6 +45,10 @@ public class projeto {
 
     public void setIdProjeto(int idProjeto) {
         this.idProjeto = idProjeto;
+    }
+
+    public String getNomeProprietario() {
+        return nomeProprietario;
     }
 
     public String getNomeProjeto() {
@@ -61,4 +74,13 @@ public class projeto {
     public void setIdProprietario(int idProprietario) {
         this.idProprietario = idProprietario;
     }
+    
+    public String getNomeUser() {
+        return nomeProprietario;
+    }
+
+    public void setNomeUser(String nomeUsuario) {
+        this.nomeProprietario = nomeUsuario;
+    }
+    
 }

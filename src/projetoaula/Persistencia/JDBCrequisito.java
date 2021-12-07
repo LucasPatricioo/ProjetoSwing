@@ -108,6 +108,145 @@ public class JDBCrequisito {
         return requeriment;
     }
     
+    public ArrayList<requisito> buscarRequisitoID(int idRequisitoRecebido) {
+
+        ArrayList<requisito> requerimentList = new ArrayList<requisito>();
+
+        String sql = "select * from tblrequisitos inner join tblusuario on tblusuario.idUsuario = tblrequisitos.idUsuario where idRequisito=?";
+
+        PreparedStatement ps;
+
+        try {
+            ps = this.conexao.prepareStatement(sql);
+
+            ps.setString(1, String.valueOf(idRequisitoRecebido));
+
+            ResultSet resultado = ps.executeQuery();
+
+            while (resultado.next()) {
+                int idRequisito = Integer.parseInt(resultado.getString("idRequisito"));
+                String nome = resultado.getString("nome");
+                String modulo = resultado.getString("modulo");
+                String funcionalidade = resultado.getString("funcionalidade");
+                Date dataCriacao = formato.parse(resultado.getString("dataCriacao"));
+                Date ultimaMod = formato.parse(resultado.getString("ultimaMod"));
+                String ultimaModAut = resultado.getString("ultimaModAut");
+                String versao = resultado.getString("versao");
+                String prioridade = resultado.getString("prioridade");
+                String complexibilidade = resultado.getString("complexibilidade");
+                String esfEstimado = resultado.getString("esfEstimado");
+                String estado = resultado.getString("estado");
+                String fase = resultado.getString("fase");
+                String descricao = resultado.getString("descricao");
+                int idProjeto = Integer.parseInt(resultado.getString("idProjeto"));
+                int idUsuario = Integer.parseInt(resultado.getString("idUsuario"));
+                String nomeUser = resultado.getString("nomeCompleto");
+
+                requisito requeriment = new requisito(idRequisito, nome, modulo, funcionalidade, dataCriacao, ultimaMod, ultimaModAut, versao, prioridade, complexibilidade, esfEstimado, estado, fase, descricao, idProjeto, idUsuario, nomeUser);
+                requerimentList.add(requeriment);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex.getMessage();
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+            ex.getMessage();
+
+        }
+        return requerimentList;
+    }
+    
+     public ArrayList<requisito> buscarRequisitosPorIDuser(int idUser) {
+
+        ArrayList<requisito> requerimentList = new ArrayList<requisito>();
+
+        String sql = "SELECT * FROM tblrequisitos where idUsuario = ?";
+
+        PreparedStatement ps;
+        try {
+            ps = this.conexao.prepareStatement(sql);
+
+            ps.setString(1, String.valueOf(idUser));
+
+            ResultSet resultado = ps.executeQuery();
+
+            while (resultado.next()) {
+                int idRequisito = Integer.parseInt(resultado.getString("idRequisito"));
+                String nome = resultado.getString("nome");
+                String modulo = resultado.getString("modulo");
+                String funcionalidade = resultado.getString("funcionalidade");
+                Date dataCriacao = formato.parse(resultado.getString("dataCriacao"));
+                Date ultimaMod = formato.parse(resultado.getString("ultimaMod"));
+                String ultimaModAut = resultado.getString("ultimaModAut");
+                String versao = resultado.getString("versao");
+                String prioridade = resultado.getString("prioridade");
+                String complexibilidade = resultado.getString("complexibilidade");
+                String esfEstimado = resultado.getString("esfEstimado");
+                String estado = resultado.getString("estado");
+                String fase = resultado.getString("fase");
+                String descricao = resultado.getString("descricao");
+                int idProjeto = Integer.parseInt(resultado.getString("idProjeto"));
+                int idUsuario = Integer.parseInt(resultado.getString("idUsuario"));
+
+                requisito requeriment = new requisito(idRequisito, nome, modulo, funcionalidade, dataCriacao, ultimaMod, ultimaModAut, versao, prioridade, complexibilidade, esfEstimado, estado, fase, descricao, idProjeto, idUsuario);
+                requerimentList.add(requeriment);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        return requerimentList;
+    }
+     
+     
+      public ArrayList<requisito> buscarRequisitosPorNome(String nomeReq) {
+
+        ArrayList<requisito> requerimentList = new ArrayList<requisito>();
+
+        String sql = "SELECT * FROM tblrequisitos inner join tblusuario on tblusuario.idUsuario = tblrequisitos.idUsuario where nome = ?";
+
+        PreparedStatement ps;
+        try {
+            ps = this.conexao.prepareStatement(sql);
+
+            ps.setString(1, nomeReq);
+
+            ResultSet resultado = ps.executeQuery();
+
+            while (resultado.next()) {
+                int idRequisito = Integer.parseInt(resultado.getString("idRequisito"));
+                String nome = resultado.getString("nome");
+                String modulo = resultado.getString("modulo");
+                String funcionalidade = resultado.getString("funcionalidade");
+                Date dataCriacao = formato.parse(resultado.getString("dataCriacao"));
+                Date ultimaMod = formato.parse(resultado.getString("ultimaMod"));
+                String ultimaModAut = resultado.getString("ultimaModAut");
+                String versao = resultado.getString("versao");
+                String prioridade = resultado.getString("prioridade");
+                String complexibilidade = resultado.getString("complexibilidade");
+                String esfEstimado = resultado.getString("esfEstimado");
+                String estado = resultado.getString("estado");
+                String fase = resultado.getString("fase");
+                String descricao = resultado.getString("descricao");
+                int idProjeto = Integer.parseInt(resultado.getString("idProjeto"));
+                int idUsuario = Integer.parseInt(resultado.getString("idUsuario"));
+                String nomeUser = resultado.getString("nomeCompleto");
+
+                requisito requeriment = new requisito(idRequisito, nome, modulo, funcionalidade, dataCriacao, ultimaMod, ultimaModAut, versao, prioridade, complexibilidade, esfEstimado, estado, fase, descricao, idProjeto, idUsuario, nomeUser);
+                requerimentList.add(requeriment);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        return requerimentList;
+    }
+    
     
     public ArrayList<requisito> buscarTodosRequisitos(){
     
